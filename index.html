@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Moonlight Tales — Stories for Grown Readers</title>
+  <meta name="description" content="Moonlight Tales — a curated collection of stories for adult readers. Search, save favorites, read in night mode, and download stories." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌙</text></svg>">
+</head>
+<body>
+  <div id="site">
+
+    <!-- Age gate -->
+    <div id="age-gate" class="modal active" aria-hidden="false" role="dialog" aria-labelledby="ageTitle">
+      <div class="modal-inner">
+        <h2 id="ageTitle">Welcome to Moonlight Tales</h2>
+        <p>This site contains material intended for adult audiences (18+). By entering you confirm you are 18 years or older.</p>
+        <div class="age-actions">
+          <button id="enterBtn" class="btn primary">I am 18 or older — Enter</button>
+          <button id="leaveBtn" class="btn ghost">Leave</button>
+        </div>
+        <p class="small">If you are not 18+, please close this page. You can also set a passcode to re-open the site later.</p>
+        <div class="admin">
+          <label for="agePass">Set / enter passcode (optional):</label>
+          <input id="agePass" type="password" placeholder="Set a passcode to skip age gate later" />
+          <button id="setPassBtn" class="btn">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top navigation -->
+    <header class="topbar">
+      <div class="brand" role="banner">
+        <button id="menuToggle" class="icon-btn" aria-label="Toggle menu">☰</button>
+        <a href="#" id="homeLink" class="logo">Moonlight Tales</a>
+      </div>
+
+      <div class="controls">
+        <input id="searchInput" type="search" placeholder="Search stories, authors, tags..." aria-label="Search stories" />
+        <button id="favoritesBtn" class="icon-btn" title="Favorites">★</button>
+        <button id="darkModeBtn" class="icon-btn" title="Toggle night mode">🌓</button>
+      </div>
+    </header>
+
+    <main id="main" role="main">
+      <aside id="sidebar" class="panel">
+        <section>
+          <h3>Categories</h3>
+          <ul id="categoryList" class="categories"></ul>
+        </section>
+
+        <section>
+          <h3>Filters</h3>
+          <label><input type="checkbox" id="filterFavorites" /> Show only favorites</label>
+          <div class="sort">
+            <label for="sortSelect">Sort</label>
+            <select id="sortSelect">
+              <option value="new">Newest</option>
+              <option value="popular">Most viewed</option>
+              <option value="alpha">A → Z</option>
+            </select>
+          </div>
+        </section>
+
+        <section>
+          <h3>Admin</h3>
+          <small>Local-only import/export (JSON)</small>
+          <div class="admin-controls">
+            <input id="importFile" type="file" accept=".json" />
+            <button id="exportBtn" class="btn">Export stories</button>
+            <button id="clearDataBtn" class="btn ghost">Reset local data</button>
+          </div>
+        </section>
+      </aside>
+
+      <section id="content" class="panel">
+        <div id="hero">
+          <h1>Stories for Grown Readers</h1>
+          <p>Quiet corners, late nights — stories that explore the human heart. Curated for adults.</p>
+        </div>
+
+        <section id="listView" aria-live="polite">
+          <div id="listHeader" class="list-header">
+            <h2>All Stories</h2>
+            <div class="list-actions">
+              <label for="perPage">Per page</label>
+              <select id="perPage"><option>6</option><option>12</option><option>24</option></select>
+            </div>
+          </div>
+
+          <div id="storiesGrid" class="grid"></div>
+
+          <nav id="pagination" class="pagination" aria-label="Pagination"></nav>
+        </section>
+
+        <article id="reader" class="reader panel hidden" aria-live="polite">
+          <header class="reader-header">
+            <button id="backToList" class="btn ghost">← Back</button>
+            <div class="reader-actions">
+              <button id="favToggle" class="btn">☆ Favorite</button>
+              <button id="downloadBtn" class="btn">Download</button>
+              <label title="Font size">A <input id="fontSize" type="range" min="14" max="30" value="18" /> A</label>
+            </div>
+          </header>
+
+          <div id="storyMeta" class="story-meta"></div>
+          <div id="storyContent" class="story-content"></div>
+          <footer class="reader-footer">
+            <button id="prevStory" class="btn ghost">Previous</button>
+            <button id="nextStory" class="btn ghost">Next</button>
+          </footer>
+        </article>
+
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <small>© <span id="year"></span> Moonlight Tales • For 18+ only • Client-side demo</small>
+    </footer>
+
+  </div>
+
+  <template id="storyCardTemplate">
+    <article class="card">
+      <div class="card-body">
+        <h3 class="card-title"></h3>
+        <p class="card-excerpt"></p>
+        <div class="card-meta">
+          <span class="author"></span> • <span class="time"></span>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn small readBtn">Read</button>
+        <button class="btn small favBtn">☆</button>
+      </div>
+    </article>
+  </template>
+
+  <script src="script.js" type="module"></script>
+</body>
+</html>
